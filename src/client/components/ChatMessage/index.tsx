@@ -1,16 +1,24 @@
+import { Icon } from "@components/Icon";
+
 import styles from "./styles.module.css";
 
 interface ChatMessageProps {
-  icon: string;
+  authorId: string;
   message: string;
   isOwn: boolean;
 }
 
-export const ChatMessage = ({ icon, message, isOwn }: ChatMessageProps) => {
+export const ChatMessage = ({ authorId, message, isOwn }: ChatMessageProps) => {
   return (
-    <div className={`${styles.root} ${isOwn ? "message-my" : "message-other"}`}>
-      <div className={styles.icon}>{icon}</div>
-      <div className={styles.message}>{message}</div>
+    <div
+      className={`${styles.message} ${
+        isOwn ? styles.messageOwn : styles.messageOther
+      }`}
+    >
+      <div className={styles.icon}>
+        <Icon userId={authorId} />
+      </div>
+      <pre className={styles.body}>{message}</pre>
     </div>
   );
 };

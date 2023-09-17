@@ -1,6 +1,7 @@
 import { KeyboardEvent, FormEvent, useRef } from "react";
 
 import { ChatMessage } from "@components/ChatMessage";
+import { Icon } from "@components/Icon";
 import { MessageData } from "@shared/messages";
 import { ObjectState } from "@stores/chat";
 
@@ -13,24 +14,6 @@ interface ChatSSEProps {
   messages: MessageData[];
   onSubmitMessage: (message: string) => void;
 }
-
-const makeIdToIcon = () => {
-  const cache = new Map();
-  return (id: string) => {
-    if (cache.has(id)) {
-      return cache.get(id);
-    }
-    let icon = "?";
-    try {
-      icon = String.fromCodePoint(parseInt(id));
-    } finally {
-      cache.set(id, icon);
-    }
-    return icon;
-  };
-};
-
-const idToIcon = makeIdToIcon();
 
 export const ChatSSE = ({
   chatState,
@@ -61,30 +44,33 @@ export const ChatSSE = ({
   return (
     <section className={styles.chatSse}>
       {chatState === "error" && (
-        <section className={styles.error}>Error</section>
+        <section className={styles.chatError}>Error</section>
       )}
       {chatState === "loading" && (
-        <section className={styles.loading}>Loading</section>
+        <section className={styles.chatLoading}>Loading</section>
       )}
       {chatState === "ready" && (
         <>
           {sendMessageState !== "loading" && (
             <form ref={formRef} onSubmit={handleSubmit}>
               <section className={styles.form}>
-                <div className={styles.formIcon}>{idToIcon(userId)}</div>
+                <div className={styles.formIcon}>
+                  <Icon userId={userId} />
+                </div>
                 <textarea
                   // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
                   name="message"
                   defaultValue=""
-                  placeholder="type message and press Enter"
+                  className={styles.formText}
+                  placeholder="Type message and press Enter"
                   onKeyDown={handleEnterPress}
                 />
               </section>
             </form>
           )}
           {sendMessageState === "loading" && (
-            <section className={styles.loading}>Loading</section>
+            <section className={styles.messageLoading}>Loading</section>
           )}
           <section className={styles.messages}>
             {messages.map((_, index, array) => {
@@ -92,8 +78,8 @@ export const ChatSSE = ({
               return (
                 <ChatMessage
                   key={id}
+                  authorId={authorId}
                   message={message}
-                  icon={idToIcon(authorId)}
                   isOwn={authorId === userId}
                 />
               );
