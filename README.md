@@ -10,6 +10,6 @@ Please take note of the development environment setup using Vite. Vite was chose
 
 SSE (Server-Sent Events) was selected for its reliability. As it essentially establishes a simple GET connection, it functions across most web browsers. The downside is a limitation on the number of open connections, which is capped at just 6 across all tabs in your browser. However, for a basic example, this limitation is unlikely to pose any issues.
 
-[It should look similar](materials/chat.png)
+[It should look similar](https://github.com/ghooost/chat-sse/blob/trunk/materials/chat.png)
 
 And yes! Don't forget to update .env.development for the production build. The VITE_API_BASE variable contains the URL to the API that the client uses.
