@@ -1,27 +1,11 @@
-# React + TypeScript + Vite
+# Building a Resilient Chat Application with SSE, React, Redux, Express, TypeScript and Vite!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a chat application created as a small (yet fully functional) code example. Clients establish connections and receive new messages using the Server-Sent Events (SSE) protocol. For sending new messages and pinging, REST methods are employed since SSE does not support bidirectional communication.
 
-Currently, two official plugins are available:
+Both the client and server are implemented in TypeScript. The server-side runs on Node.js and utilizes Express.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+On the client-side, React, Redux, and CSS modules are utilized.
 
-## Expanding the ESLint configuration
+Please take note of the development environment setup using Vite. Vite was chosen for its ability to easily configure multiple entry points, including both the client and server components.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+SSE (Server-Sent Events) was selected for its reliability. As it essentially establishes a simple GET connection, it functions across most web browsers. The downside is a limitation on the number of open connections, which is capped at just 6 across all tabs in your browser. However, for a basic example, this limitation is unlikely to pose any issues.
