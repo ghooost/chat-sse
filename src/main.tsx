@@ -7,8 +7,6 @@ import App from "./App.tsx";
 import { store } from "@stores/store";
 import "./index.css";
 
-export const testTest = "";
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
