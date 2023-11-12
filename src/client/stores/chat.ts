@@ -14,12 +14,8 @@ const SLICE_NAME = "messages";
 
 export const sendPing = createAsyncThunk(
   `${SLICE_NAME}/sendPing`,
-  async (userId: UserId, thunkApi) => {
-    const code = await postPing(userId);
-    if (code === 200) {
-      return code;
-    }
-    thunkApi.rejectWithValue(code);
+  async (userId: UserId) => {
+    return await postPing(userId);
   }
 );
 
@@ -48,7 +44,7 @@ const initialState: ChatState = {
   chatState: "undefined",
   sendMessageState: "undefined",
   error: "",
-  userId: -1,
+  userId: 0,
 };
 
 export const chatSlice = createSlice({

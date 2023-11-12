@@ -19,14 +19,14 @@
   word-break: break-all;
 }
 
-.messageOwn {
+.messageOther {
   justify-content: flex-end;
 }
 
-.messageOwn .icon {
+.messageOther .icon {
   order: 3;
 }
 
-.messageOwn .body {
+.messageOther .body {
   text-align: right;
 }
