@@ -2,13 +2,13 @@ import { KeyboardEvent, FormEvent, useRef } from "react";
 
 import { ChatMessage } from "@components/ChatMessage";
 import { Icon } from "@components/Icon";
-import { MessageData } from "@shared/messages";
+import { MessageData, UserId } from "@shared/messages";
 import { ObjectState } from "@stores/chat";
 
 import styles from "./styles.module.css";
 
 interface ChatSSEProps {
-  userId: string;
+  userId: UserId;
   chatState: ObjectState;
   sendMessageState: ObjectState;
   messages: MessageData[];
@@ -74,7 +74,11 @@ export const ChatSSE = ({
           )}
           <section className={styles.messages}>
             {messages.map((_, index, array) => {
-              const { message, id, authorId } = array[array.length - 1 - index];
+              const {
+                body: message,
+                id,
+                authorId,
+              } = array[array.length - 1 - index];
               return (
                 <ChatMessage
                   key={id}

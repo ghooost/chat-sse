@@ -8,18 +8,23 @@ import {
 import { RootState } from "./store";
 
 import { postPing, postMessage } from "@apis/messages";
+import { UserId } from "@shared/messages";
 
 const SLICE_NAME = "messages";
 
 export const sendPing = createAsyncThunk(
   `${SLICE_NAME}/sendPing`,
-  async (userId: string) => {
-    return await postPing(userId);
+  async (userId: UserId, thunkApi) => {
+    const code = await postPing(userId);
+    if (code === 200) {
+      return code;
+    }
+    thunkApi.rejectWithValue(code);
   }
 );
 
 interface SendMessageParams {
-  userId: string;
+  userId: number;
   message: string;
 }
 
@@ -36,14 +41,14 @@ interface ChatState {
   chatState: ObjectState;
   sendMessageState: ObjectState;
   error: string;
-  userId: string;
+  userId: UserId;
 }
 
 const initialState: ChatState = {
   chatState: "undefined",
   sendMessageState: "undefined",
   error: "",
-  userId: "",
+  userId: -1,
 };
 
 export const chatSlice = createSlice({
@@ -53,7 +58,7 @@ export const chatSlice = createSlice({
     setChatState: (state, action: PayloadAction<ObjectState>) => {
       state.chatState = action.payload;
     },
-    setUserId: (state, action: PayloadAction<string>) => {
+    setUserId: (state, action: PayloadAction<UserId>) => {
       state.userId = action.payload;
     },
   },

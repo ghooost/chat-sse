@@ -1,16 +1,20 @@
+export type UserId = number;
+
 export interface MessageData {
   id: number;
-  message: string;
-  authorId: string;
+  authorId: UserId;
+  body: string;
 }
 
-export interface MessageConnected {
-  mode: "connected";
-  userId: string;
+export interface MessageConnect {
+  mode: "connect";
+  userId: UserId;
+  messages: MessageData[];
 }
 
-export interface MessageMessage extends MessageData {
+export interface MessageMessage {
   mode: "message";
+  message: MessageData;
 }
 
-export type Message = MessageConnected | MessageMessage;
+export type Message = MessageConnect | MessageMessage;

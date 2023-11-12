@@ -1,9 +1,10 @@
 import { Icon } from "@components/Icon";
+import { UserId } from "@shared/messages";
 
 import styles from "./styles.module.css";
 
 interface ChatMessageProps {
-  authorId: string;
+  authorId: UserId;
   message: string;
   isOwn: boolean;
 }
@@ -18,7 +19,7 @@ export const ChatMessage = ({ authorId, message, isOwn }: ChatMessageProps) => {
       <div className={styles.icon}>
         <Icon userId={authorId} />
       </div>
-      <pre className={styles.body}>{message}</pre>
+      <div className={styles.body}>{message}</div>
     </div>
   );
 };

@@ -34,16 +34,15 @@ export const ChatSSEConnected = () => {
       `${import.meta.env.VITE_API_BASE}/sse`
     );
     const handleMessage = ({ data }: MessageEvent<string>) => {
-      const parsed = JSON.parse(data) as Message;
-      switch (parsed.mode) {
-        case "connected":
-          dispatch(setUserId(parsed.userId));
+      const parsedMessage = JSON.parse(data) as Message;
+      switch (parsedMessage.mode) {
+        case "connect":
+          dispatch(setUserId(parsedMessage.userId));
           dispatch(setChatState("ready"));
+          addMessage((messages) => messages.concat(parsedMessage.messages));
           break;
         case "message":
-          if (parsed.message) {
-            addMessage((messages) => messages.concat([parsed]));
-          }
+          addMessage((messages) => messages.concat([parsedMessage.message]));
           break;
       }
     };

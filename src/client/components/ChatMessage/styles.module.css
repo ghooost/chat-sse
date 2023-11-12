@@ -16,6 +16,7 @@
   color: #444;
   margin: 0 1em;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  word-break: break-all;
 }
 
 .messageOwn {
@@ -28,7 +29,4 @@
 
 .messageOwn .body {
   text-align: right;
-}
-
-.messageOther {
 }
